@@ -22,8 +22,9 @@ def _main():
     _target = Path("_target")
     if _target.is_dir():
         print("_target directory found.")
-        shutil.rmtree(_target)
-        print("_target directory removed.")
+        # shutil.rmtree(_target)
+        # print("_target directory removed.")
+        print("!!!!!! We are not removing _target directory. But this may cause problems. So use with care.")
     else:
         print("No _target directory.")
 
