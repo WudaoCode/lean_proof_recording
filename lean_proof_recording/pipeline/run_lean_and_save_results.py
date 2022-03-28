@@ -54,7 +54,8 @@ def save_lean_files(path_map, lean_files: List[Path], out_directory: Path):
                 relative_file_path = file_path.relative_to(p)
                 new_file_path = out_directory / "lean_files/" / path_map[p] / relative_file_path
                 os.makedirs(os.path.dirname(new_file_path), exist_ok=True)
-                shutil.copy2(file_path, new_file_path)
+                if not new_file_path.exists():
+                    shutil.copy2(file_path, new_file_path)
                 break
 
 
@@ -63,6 +64,8 @@ def delete_oleans(lean_files: List[Path]):
         # replace suffix .lean => .olean
         olean = file_path.with_suffix(".olean")
         if olean.exists():
+            olean.chmod(0o644)
+            olean.parent.chmod(0o777)
             olean.unlink()  # deletes olean file
 
 
